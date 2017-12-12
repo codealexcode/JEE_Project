@@ -10,23 +10,48 @@ package com.efrei.model;
  * @author Alexis
  */
 public class User {
-    String login;
-    String pwd;
+    private String _login;
+    private String _pwd;
 
-    public String getLogin() {
-        return login;
+    public String get_login() {
+        return _login;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void set_login(String _login) {
+        this._login = _login;
     }
 
-    public String getPwd() {
-        return pwd;
+    public String get_pwd() {
+        return _pwd;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public void set_pwd(String _pwd) {
+        this._pwd = _pwd;
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (_login != null ? !_login.equals(user._login) : user._login != null) return false;
+        return _pwd != null ? _pwd.equals(user._pwd) : user._pwd == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = _login != null ? _login.hashCode() : 0;
+        result = 31 * result + (_pwd != null ? _pwd.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "_login='" + _login + '\'' +
+                ", _pwd='" + _pwd + '\'' +
+                '}';
+    }
 }
