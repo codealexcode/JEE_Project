@@ -1,19 +1,12 @@
-<%-- 
-    Document   : bienvenue
-    Created on : 21 nov. 2017, 16:35:14
-    Author     : Alexis
---%>
 <%@page import="com.efrei.model.Member"%>
 <%@page import="java.io.Console"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.efrei.model.*"%>
-
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -30,26 +23,31 @@
             Statement statement = null;
             ResultSet resultSet = null;
             try{
-                connection = DriverManager.getConnection(connectionUrl, userId, password);
-                statement=connection.createStatement();
-                String sql = "SELECT * FROM LOGIN";
-                resultSet = statement.executeQuery(sql);
-                String userName = null;
-                String pWd = null;
-                while(resultSet.next()){
-
-                    userName= resultSet.getString("USERNAME");
-                    pWd = resultSet.getString("PASSWORD");
-                }    
-                String str1=request.getParameter("login");
-                String str2=request.getParameter("pwd");
-                connection.close();
-                System.out.println(str2 + " "+pWd);
-                System.out.println(str1 +" "+ userName);
-                if(str1.equals(userName) && str2.equals(pWd))
+                User user = new User();
+                String str1 = null;
+                String str2 = null;
+                if (session.getAttribute("user") == null) {
+                   
+                    connection = DriverManager.getConnection(connectionUrl, userId, password);
+                    statement=connection.createStatement();
+                    String sql = "SELECT * FROM LOGIN";
+                    resultSet = statement.executeQuery(sql);
+                    while(resultSet.next()){
+                        user.set_login(resultSet.getString("USERNAME"));
+                        user.set_pwd(resultSet.getString("PASSWORD"));
+                    }
+                    connection.close();
+                    session.setAttribute("user", user);
+                    str1=request.getParameter("login");
+                    str2=request.getParameter("pwd");
+                }
+                else {
+                    user = (User) session.getAttribute("user");
+                    str1=user.get_login();
+                    str2=user.get_pwd();
+                }
+                if(str1.equals(user.get_login()) && str2.equals(user.get_pwd()))
                 {
-                  out.println("<h3>Your Login is Successful</h3>");    
-                  System.out.println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
         %>
             <form name="members_form" action="dispatcher.jsp">
                 <table>
@@ -69,25 +67,25 @@
                     </tr>
         <%
                     //Retrieve data from the JeeBase JavaDataBase ..............................
-
+                    
                     try{ 
                         connection = DriverManager.getConnection(connectionUrl, userId, password);
                         statement=connection.createStatement();
                         String sql1 = "SELECT * FROM MEMBER";
                         resultSet = statement.executeQuery(sql1);
+                        if(resultSet != null) {
+                            while(resultSet.next()) {
+                                int DBId = resultSet.getInt("ID");
+                                String DBName= resultSet.getString("NAME");
+                                String DBFirstname = resultSet.getString("FIRSTNAME");
+                                String DBEmail = resultSet.getString("EMAIL");
 
-                        while(resultSet.next()){
-                            int DBId = resultSet.getInt("ID");
-                            String DBName= resultSet.getString("NAME");
-                            String DBFirstname = resultSet.getString("FIRSTNAME");
-                            String DBEmail = resultSet.getString("EMAIL");
-
-                            Member member = new Member();
-                            member.set_id(DBId);
-                            member.set_name(DBName);
-                            member.set_firstname(DBFirstname);
-                            member.set_email(DBEmail);
-
+                                Member member = new Member();
+                                member.set_id(DBId);
+                                member.set_name(DBName);
+                                member.set_firstname(DBFirstname);
+                                member.set_email(DBEmail);
+                                System.out.println(member);
         %>
                         <br>
                         <tr>
@@ -105,6 +103,8 @@
                             </td>
                         </tr><br>        
         <%
+                        }
+                        connection.close();
                     }
         %>
                     <tr>
@@ -123,21 +123,17 @@
                     catch (NullPointerException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("dddddddddddddddddddd");
+                    System.out.println("fail2");
                 }
                 else
                 {
-                    out.println("<h3>Sorry, your Login is Failed</h3>"); 
-        %>
-                    fail
-        <%
+                    out.println("<h3>Sorry, your Login Failed</h3>"); 
                 }
             } 
             catch (NullPointerException e) {
                 e.printStackTrace();
             }
             System.out.println("fail");
-
 %>
                
     </body>

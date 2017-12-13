@@ -1,10 +1,5 @@
-<%-- 
-    Document   : index
-    Created on : 21 nov. 2017, 15:35:18
-    Author     : Alexis
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page session="false"%>
 <!DOCTYPE html>
 <html>
     <head>

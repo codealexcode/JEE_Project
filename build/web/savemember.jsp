@@ -1,8 +1,3 @@
-<%-- 
-    Document   : savemember
-    Created on : 6 déc. 2017, 17:00:15
-    Author     : Alexis
---%>
 
 <%@page import="com.efrei.model.Member"%>
 <%@page import="java.io.Console"%>
@@ -22,35 +17,40 @@
     </head>
     <body>
         <%
-    // Retrieve data from index.jsp forms ......................................
-    String connectionUrl = "jdbc:derby://localhost:1527/JEEProjectDataBase";
-    String userId = "jee";
-    String password = "jee";
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultSet = null;
-    
-    try{ 
-        connection = DriverManager.getConnection(connectionUrl, userId, password);
-        statement=connection.createStatement();
-        String sql =    "INSERT INTO MEMBER (NAME, FIRSTNAME, EMAIL, PHONE_HOME, PHONE_MOBILE, PHONE_WORK, ADDRESS, ZIP_CODE, CITY)"
-                        + "VALUES('" + request.getParameter("Lastname") + "', "
-                        + "'" + request.getParameter("Firstname") + "',"
-                        + "'" + request.getParameter("Email") + "',"
-                        + "'" + request.getParameter("PhoneHome") + "',"
-                        + "'" + request.getParameter("PhoneMobile") + "',"
-                        + "'" + request.getParameter("PhoneWork") + "',"
-                        + "'" + request.getParameter("address") + "',"
-                        + "'" + request.getParameter("Zipcode") + "',"
-                        + "'" + request.getParameter("City") + "')"
-                        ;
-        statement.executeUpdate(sql);
-    }
-    catch (Exception e) {
-        e.printStackTrace();
-    }
-    
-    response.sendRedirect("memberselector.jsp");
+            if( session.getAttribute("user") == null)
+                response.sendRedirect("login.jsp");
+            
+            else {             
+                // Retrieve data from index.jsp forms ......................................
+                String connectionUrl = "jdbc:derby://localhost:1527/JEEProjectDataBase";
+                String userId = "jee";
+                String password = "jee";
+                Connection connection = null;
+                Statement statement = null;
+                ResultSet resultSet = null;
+
+                try{ 
+                    connection = DriverManager.getConnection(connectionUrl, userId, password);
+                    statement=connection.createStatement();
+                    String sql =    "INSERT INTO MEMBER (NAME, FIRSTNAME, EMAIL, TELHOME, TELMOB, TELPRO, ADDRESS, POSTALCODE, CITY)"
+                                    + "VALUES('" + request.getParameter("Lastname") + "', "
+                                    + "'" + request.getParameter("Firstname") + "',"
+                                    + "'" + request.getParameter("Email") + "',"
+                                    + "'" + request.getParameter("PhoneHome") + "',"
+                                    + "'" + request.getParameter("PhoneMobile") + "',"
+                                    + "'" + request.getParameter("PhoneWork") + "',"
+                                    + "'" + request.getParameter("address") + "',"
+                                    + "'" + request.getParameter("Zipcode") + "',"
+                                    + "'" + request.getParameter("City") + "')"
+                                    ;
+                    statement.executeUpdate(sql);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                response.sendRedirect("memberselector.jsp");
+                }
 %>
     </body>
 </html>

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : modifymember
-    Created on : 6 déc. 2017, 22:58:27
-    Author     : Alexis
---%>
 <%@page import="com.efrei.model.Member"%>
 <%@page import="java.io.Console"%>
 <%@page import="java.util.List"%>
@@ -22,38 +17,42 @@
     </head>
     <body>
         <%
-    // Retrieve data from index.jsp forms ......................................
-    String connectionUrl = "jdbc:derby://localhost:1527/JEEProjectDataBase";
-    String userId = "jee";
-    String password = "jee";
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultSet = null;
-    
-    try{ 
-        connection = DriverManager.getConnection(connectionUrl, userId, password);
-        statement = connection.createStatement();
-        String sql =    "UPDATE MEMBER "
-                        + "SET NAME = '" + request.getParameter("Lastname") + "', "
-                        + "FIRSTNAME = '" + request.getParameter("Firstname") + "', "
-                        + "EMAIL = '" + request.getParameter("Email") + "', "
-                        + "PHONE_HOME = '" + request.getParameter("PhoneHome") + "', "
-                        + "PHONE_MOBILE = '" + request.getParameter("PhoneMobile") + "', "
-                        + "PHONE_WORK = '" + request.getParameter("PhoneWork") + "', "
-                        + "ADDRESS = '" + request.getParameter("address") + "', "
-                        + "ZIP_CODE = '" + request.getParameter("Zipcode") + "', "
-                        + "CITY = '" + request.getParameter("City") + "' "
-                        + "WHERE ID = " + request.getParameter("id")
-                        ;
+            if( session.getAttribute("user") == null)
+                response.sendRedirect("login.jsp");
+            
+            else {             
+                // Retrieve data from index.jsp forms ......................................
+                String connectionUrl = "jdbc:derby://localhost:1527/JEEProjectDataBase";
+                String userId = "jee";
+                String password = "jee";
+                Connection connection = null;
+                Statement statement = null;
+                ResultSet resultSet = null;
 
-        statement.executeUpdate(sql);
-    }
-    catch (Exception e) {
-        e.printStackTrace();
-    }
-    response.sendRedirect("memberselector.jsp");
-    
-%>
+                try{ 
+                    connection = DriverManager.getConnection(connectionUrl, userId, password);
+                    statement = connection.createStatement();
+                    String sql =    "UPDATE MEMBER "
+                                    + "SET NAME = '" + request.getParameter("Lastname") + "', "
+                                    + "FIRSTNAME = '" + request.getParameter("Firstname") + "', "
+                                    + "EMAIL = '" + request.getParameter("Email") + "', "
+                                    + "TELHOME = '" + request.getParameter("PhoneHome") + "', "
+                                    + "TELMOB = '" + request.getParameter("PhoneMobile") + "', "
+                                    + "TELPRO = '" + request.getParameter("PhoneWork") + "', "
+                                    + "ADDRESS = '" + request.getParameter("address") + "', "
+                                    + "POSTALCODE = '" + request.getParameter("Zipcode") + "', "
+                                    + "CITY = '" + request.getParameter("City") + "' "
+                                    + "WHERE ID = " + request.getParameter("id")
+                                    ;
+
+                    statement.executeUpdate(sql);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                response.sendRedirect("memberselector.jsp");
+            }    
+        %>
     </body>
 </html>
 

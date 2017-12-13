@@ -5,10 +5,6 @@
  */
 package com.efrei.model;
 
-/**
- *
- * @author Alexis & DrRaider
- */
 public class Member {
     private int _id;
     private String _name;

@@ -5,10 +5,6 @@
  */
 package com.efrei.model;
 
-/**
- *
- * @author Alexis
- */
 public class User {
     private String _login;
     private String _pwd;

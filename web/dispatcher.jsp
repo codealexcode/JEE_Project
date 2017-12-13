@@ -1,8 +1,3 @@
-<%-- 
-    Document   : controller
-    Created on : 21 nov. 2017, 16:04:47
-    Author     : Alexis
---%>
 <%@page import="com.efrei.model.Member"%>
 <%@page import="java.io.Console"%>
 <%@page import="java.util.List"%>
@@ -24,6 +19,10 @@
     <body>
 
 <%
+    if( session.getAttribute("user") == null)
+                response.sendRedirect("login.jsp");
+            
+    else {             
     // Retrieve data from index.jsp forms ......................................
     String connectionUrl = "jdbc:derby://localhost:1527/JEEProjectDataBase";
     String userId = "jee";
@@ -46,11 +45,11 @@
                         String DBName= resultSet.getString("NAME");
                         String DBFirstname = resultSet.getString("FIRSTNAME");
                         String DBEmail = resultSet.getString("EMAIL");
-                        String DBPhoneHome = resultSet.getString("PHONE_HOME");
-                        String DBPhoneWork = resultSet.getString("PHONE_WORK");
-                        String DBPhoneMobile = resultSet.getString("PHONE_MOBILE");
+                        String DBPhoneHome = resultSet.getString("TELHOME");
+                        String DBPhoneWork = resultSet.getString("TELPRO");
+                        String DBPhoneMobile = resultSet.getString("TELMOB");
                         String DBAddress = resultSet.getString("ADDRESS");
-                        String DBZipCode = resultSet.getString("ZIP_CODE");
+                        String DBZipCode = resultSet.getString("POSTALCODE");
                         String DBCity = resultSet.getString("CITY");
                         Member member = new Member();
                         member.set_id(DBId);
@@ -64,7 +63,7 @@
                         member.set_zipcode(DBZipCode);
                         member.set_city(DBCity);
                         
-                        %>
+            %>
                                 <form name="dispatcherform" action="modifymember.jsp">
                                     <table>
                                             <input type="hidden" name="id" value="<%=member.get_id()  %>" >
@@ -105,12 +104,15 @@
                                                 <td><input type="reset" ></td>
                                             </tr>
                                     </table> 
-                                </form>     
-                    <%
+                                </form>
+                                <form action="memberselector.jsp">
+                                    <input type="submit" value="cancel">
+                                </form>
+        <%
                     }  
                 }
                 catch (Exception e) {
-                    e.printStackTrace();
+                    e.printStackTrace();     
                 }
             }
             else if (selection.equals("Delete")){
@@ -127,48 +129,50 @@
 
             }
             else if (selection.equals("Add")){
-            %>
+        %>
                 <form name="dispatcherform" action="savemember.jsp">
-                                    <table>
-                                            <tr>
-                                                <td>Lastname: </td>
-                                                <td><input type="text" name="Lastname" ></td>
-                                                <td>Firstname: </td>
-                                                <td><input type="text" name="Firstname" ></td>
-                                            </tr>
-                                            <tr><td>Phone Numbers:</td></tr>
-                                            <tr>
-                                                <td>Home:</td>
-                                                <td><input type="text" name="PhoneHome">  </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mobile:</td>
-                                                <td><input type="text" name="PhoneMobile">  </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Work:</td>
-                                                <td><input type="text" name="PhoneWork">  </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address:</td>
-                                                <td><input type="text" name="address">  </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Postal Code:</td>
-                                                <td><input type="text" name="Zipcode">  </td>
-                                                <td><input type="text" name="City">  </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Email:</td>
-                                                <td><input type="text" name="Email">  </td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="submit" name="Save" value="Save"> </td>
-                                                <td><input type="reset" ></td>
-                                            </tr>
-                                    </table> 
-                    </  form>
-            <%}
+                    <table>
+                            <tr>
+                                <td>Lastname: </td>
+                                <td><input type="text" name="Lastname" ></td>
+                                <td>Firstname: </td>
+                                <td><input type="text" name="Firstname" ></td>
+                            </tr>
+                            <tr><td>Phone Numbers:</td></tr>
+                            <tr>
+                                <td>Home:</td>
+                                <td><input type="text" name="PhoneHome">  </td>
+                            </tr>
+                            <tr>
+                                <td>Mobile:</td>
+                                <td><input type="text" name="PhoneMobile">  </td>
+                            </tr>
+                            <tr>
+                                <td>Work:</td>
+                                <td><input type="text" name="PhoneWork">  </td>
+                            </tr>
+                            <tr>
+                                <td>Address:</td>
+                                <td><input type="text" name="address">  </td>
+                            </tr>
+                            <tr>
+                                <td>Postal Code:</td>
+                                <td><input type="text" name="Zipcode">  </td>
+                                <td><input type="text" name="City">  </td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td><input type="text" name="Email">  </td>
+                            </tr>
+                            <tr>
+                                <td><input type="submit" name="Save" value="Save"> </td>
+                                <td><input type="reset" ></td>
+                            </tr>
+                    </table> 
+                </form>
+        <%
+            }
+}
         %>
     </body>
 </html>
