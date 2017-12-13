@@ -52,43 +52,53 @@
                         String DBAddress = resultSet.getString("ADDRESS");
                         String DBZipCode = resultSet.getString("ZIP_CODE");
                         String DBCity = resultSet.getString("CITY");
-                        Member member = new Member(DBId,DBName,DBFirstname,DBEmail,DBPhoneHome,DBPhoneMobile,DBPhoneWork,DBAddress,DBZipCode,DBCity); 
+                        Member member = new Member();
+                        member.set_id(DBId);
+                        member.set_name(DBName);
+                        member.set_firstname(DBFirstname);
+                        member.set_email(DBEmail);
+                        member.set_phonehome(DBPhoneHome);
+                        member.set_phonework(DBPhoneWork);
+                        member.set_phonemobile(DBPhoneMobile);
+                        member.set_address(DBAddress);
+                        member.set_zipcode(DBZipCode);
+                        member.set_city(DBCity);
                         
                         %>
                                 <form name="dispatcherform" action="modifymember.jsp">
                                     <table>
-                                            <input type="hidden" name="id" value="<%=member.getId()  %>" >
+                                            <input type="hidden" name="id" value="<%=member.get_id()  %>" >
                                             <tr>
                                                 <td>Lastname: </td>
-                                                <td><input type="text" name="Lastname" value="<%=member.getName()  %>" ></td>
+                                                <td><input type="text" name="Lastname" value="<%=member.get_name()  %>" ></td>
                                                 <td>Firstname: </td>
-                                                <td><input type="text" name="Firstname" value="<%=member.getFirstname()  %>" ></td>
+                                                <td><input type="text" name="Firstname" value="<%=member.get_firstname()  %>" ></td>
                                             </tr>
                                             <tr><td>Phone Numbers:</td></tr>
                                             <tr>
                                                 <td>Home:</td>
-                                                <td><input type="text" name="PhoneHome" value="<%=member.getPhoneHome()  %>">  </td>
+                                                <td><input type="text" name="PhoneHome" value="<%=member.get_phonehome()  %>">  </td>
                                             </tr>
                                             <tr>
                                                 <td>Mobile:</td>
-                                                <td><input type="text" name="PhoneMobile" value="<%=member.getPhoneMobile()  %>">  </td>
+                                                <td><input type="text" name="PhoneMobile" value="<%=member.get_phonemobile()  %>">  </td>
                                             </tr>
                                             <tr>
                                                 <td>Work:</td>
-                                                <td><input type="text" name="PhoneWork" value="<%=member.getPhoneWork()  %>">  </td>
+                                                <td><input type="text" name="PhoneWork" value="<%=member.get_phonework()  %>">  </td>
                                             </tr>
                                             <tr>
                                                 <td>Address:</td>
-                                                <td><input type="text" name="address" value="<%=member.getAddress()  %>">  </td>
+                                                <td><input type="text" name="address" value="<%=member.get_address()  %>">  </td>
                                             </tr>
                                             <tr>
                                                 <td>Postal Code:</td>
-                                                <td><input type="text" name="Zipcode" value="<%=member.getZipcode()  %>">  </td>
-                                                <td><input type="text" name="City" value="<%=member.getCity()  %>">  </td>
+                                                <td><input type="text" name="Zipcode" value="<%=member.get_zipcode()  %>">  </td>
+                                                <td><input type="text" name="City" value="<%=member.get_city()  %>">  </td>
                                             </tr>
                                             <tr>
                                                 <td>Email:</td>
-                                                <td><input type="text" name="Email" value="<%=member.getEmail()  %>">  </td>
+                                                <td><input type="text" name="Email" value="<%=member.get_email()  %>">  </td>
                                             </tr>
                                             <tr>
                                                 <td><input type="submit" value="Save" /> </td>

@@ -20,7 +20,7 @@
                             Name: 
                         </td>
                         <td>
-                            <input type="text" name="loginForm" />
+                            <input type="text" name="login" />
                         </td>
                     </tr>
                     <tr>
@@ -28,7 +28,7 @@
                             Password: 
                         </td>
                         <td>
-                            <input type="text" name="passForm" />
+                            <input type="text" name="pwd" />
                         </td>
                     </tr>
                     <tr>

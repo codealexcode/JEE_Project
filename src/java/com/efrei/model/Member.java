@@ -21,19 +21,6 @@ public class Member {
     private String _zipcode;
     private String _city;
 
-    public Member(int _id, String _name, String _firstname, String _email, String _phonehome, String _phonemobile, String _phonework, String _address, String _zipcode, String _city) {
-        this._id = _id;
-        this._name = _name;
-        this._firstname = _firstname;
-        this._email = _email;
-        this._phonehome = _phonehome;
-        this._phonemobile = _phonemobile;
-        this._phonework = _phonework;
-        this._address = _address;
-        this._zipcode = _zipcode;
-        this._city = _city;
-    }
-
     public int get_id() {
         return _id;
     }
