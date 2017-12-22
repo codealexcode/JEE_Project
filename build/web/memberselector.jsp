@@ -73,7 +73,14 @@
                         statement=connection.createStatement();
                         String sql1 = "SELECT * FROM MEMBER";
                         resultSet = statement.executeQuery(sql1);
-                        if(resultSet != null) {
+                        
+                        if (resultSet.next() == false){
+                            %>
+                            <h2 style = "color:blue">the Club has no member</h2>
+                            <%
+                        }
+                        
+                        
                             while(resultSet.next()) {
                                 int DBId = resultSet.getInt("ID");
                                 String DBName= resultSet.getString("NAME");
@@ -105,7 +112,7 @@
         <%
                         }
                         connection.close();
-                    }
+                    
         %>
                     <tr>
                         <input type="submit" name="selector" value="Details" /> 
